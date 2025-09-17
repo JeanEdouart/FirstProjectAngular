@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, OnChanges, SimpleChanges, computed } from '@angular/core';
+import { Monster } from '../../models/monster.model';
+import { MonsterTypeProperties } from '../../utils/monster.utils';
 
 @Component({
   selector: 'app-playing-cards',
@@ -7,13 +9,12 @@ import { Component, Input } from '@angular/core';
   templateUrl: './playing-cards.component.html',
   styleUrl: './playing-cards.component.css'
 })
-export class PlayingCardsComponent {
-
-  @Input() name: string = "Picolas Norot";
-  @Input() hp: number = 40;
-  @Input() figureCaption: string = "N°001 - Roblox Kids";
-  @Input() attackName: string = "Coulante";
-  @Input() attackStrength: number = 60;
-  @Input() attackDescription: string = "Picolas Norot lance une coulante sur son adversaire, lui infligeant de lourds dégâts.";
-  @Input() imageUrl: string = "img/PicolasNorot.jpg";
+export class PlayingCardsComponent{
+  monster = input(new Monster());
+  monsterTypeIcon = computed(() => {
+    return MonsterTypeProperties[this.monster().type].imageUrl;
+  })
+  backgroundColor = computed(() => {
+    return MonsterTypeProperties[this.monster().type].color;
+  })
 }
